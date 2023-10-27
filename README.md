@@ -1,2 +1,2 @@
-# VIT-dev1
-VIT represents the collaboration of three dedicated students, all sharing the surname VIT, as they prepare for their upcoming capstone project.
+# Capstone Skill Development Repository
+VIT represents the collaboration of three dedicated students, all sharing the surname VIT, as they prepare for their upcoming capstone project. The primary objective of this repository is to foster the growth of individual skills while strengthening our collective teamwork. Here, we will work together to refine and enhance our abilities, ensuring a successful and seamless execution of our capstone project.
