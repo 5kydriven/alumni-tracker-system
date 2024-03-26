@@ -21,10 +21,9 @@ The Development of Alumni Tracer Management System is an important project for t
 2. What are the technical requirements needed in the Development of Alumni Tracer Management System?   
 3. How efficient and effective is the development of Alumni Tracer Management System?
 4. What is the level of difficulty encountered by Central Philippines State University Planning Office and its personnel of different campuses in terms of;
-   
-  * Notification of alumni student to fill-up employability tracer form.
-  * Consolidation of employability of the alumni students per campuses.
-  * Representation of percentage pf employed students.
+   - Notification of alumni student to fill-up employability tracer form.
+   - Consolidation of employability of the alumni students per campuses.
+   - Representation of percentage pf employed students.
 
 </dl>
 
@@ -47,11 +46,11 @@ Specifically, this project aims to:
 <dl>
 <dt>The result of the study will help the university to stay connected with its alumni and intended to improve the tracker system of the school. It saves time and efforts of the school to track the alumni. This project study will benefit the following:</dt>
 
-<dd>`The CPSU Administration`. This study will help university administrations especially the Planning’s Office in tracking alumni whereabouts and can easily informed if there’s a school related event.</dd>
+`The CPSU Administration`. This study will help university administrations especially the Planning’s Office in tracking alumni whereabouts and can easily informed if there’s a school related event.
 
-<dd>`The Alumni`. The students will be able to easily update their employment status and to keep track with the school events and activities.</dd>
+`The Alumni`. The students will be able to easily update their employment status and to keep track with the school events and activities.
 
-<dd>`Future Researchers`. This study will serve as relative information for other researchers and will aid them in developing their own online applications and creating their own version of the Alumni Tracer for future use.</dd>
+`Future Researchers`. This study will serve as relative information for other researchers and will aid them in developing their own online applications and creating their own version of the Alumni Tracer for future use.
 </dl>
 
 ### Scope and limitations
