@@ -1,5 +1,6 @@
-CHAPTER I
-INTRODUCTION
+#CHAPTER I
+###INTRODUCTION
+
 (Thomas, G. G., & Wagiu, E. (2019). ALUMNI TRACER STUDY SYSTEM DESIGN USING WEB-BASED GPS (CASE STUDY OF UNIVERSITAS ADVENT INDONESIA). Abstract Proceedings International Scholars Conference, 7(1), 1826-1841. https://doi.org/10.35974/isc.v7i1.2006 ) Graduate is one of the important support in the development of a university. Graduate have a role to assist universities in developing the university into the community through collaboration in academic terms. (2019-12-18 ).
 A new online system was made to help universities track their graduates' locations, making it easier to find out where they are now. This system aims to solve the difficulties of keeping track of alumni.
 
