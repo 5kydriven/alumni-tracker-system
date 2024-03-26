@@ -1,4 +1,5 @@
 # CHAPTER I
+
 ### INTRODUCTION
 
 (Thomas, G. G., & Wagiu, E. (2019). ALUMNI TRACER STUDY SYSTEM DESIGN USING WEB-BASED GPS (CASE STUDY OF UNIVERSITAS ADVENT INDONESIA). Abstract Proceedings International Scholars Conference, 7(1), 1826-1841. https://doi.org/10.35974/isc.v7i1.2006 ) Graduate is one of the important support in the development of a university. Graduate have a role to assist universities in developing the university into the community through collaboration in academic terms. (2019-12-18 ).
@@ -43,6 +44,7 @@ Specifically, this project aims to:
 5. Analyze well the scope of your study/ system to capacitate all the objectives that can be met by your system.l
 
 ### Significance of the Study
+
 <dl>
 <dt>The result of the study will help the university to stay connected with its alumni and intended to improve the tracker system of the school. It saves time and efforts of the school to track the alumni. This project study will benefit the following:</dt>
 
