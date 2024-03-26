@@ -16,13 +16,12 @@ The Development of Alumni Tracer Management System is an important project for t
 <dl>
 <dt>Statement of the Problem</dt>
  <dd>Tracing the graduates and sending of survey forms is also a problem. The administration struggles to keep alumni informed about their employment status. Despite efforts to reach out all the graduates quarterly, some alumni do not respond. The lack of responsiveness from certain alumni to administrative notifications asking for the latest information on graduate’s employment status, making it difficult for the administration to stay informed about the graduate’s employment status. Specifically, the present study seeks to answer the following questions:</dd>
+ 
 1. What is the current process used by the planning office of the university in terms of managing its alumni ‘s employability data and records?
-
-2. What are the technical requirements needed in the Development of Alumni Tracer Management System?
-   
+2. What are the technical requirements needed in the Development of Alumni Tracer Management System?   
 3. How efficient and effective is the development of Alumni Tracer Management System?
-
 4. What is the level of difficulty encountered by Central Philippines State University Planning Office and its personnel of different campuses in terms of;
+   
   * Notification of alumni student to fill-up employability tracer form.
   * Consolidation of employability of the alumni students per campuses.
   * Representation of percentage pf employed students.
