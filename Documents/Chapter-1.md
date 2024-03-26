@@ -13,12 +13,16 @@ The Development of Alumni Tracer Management System is an important project for t
 <dt>Statement of the Problem</dt>
  <dd>Tracing the graduates and sending of survey forms is also a problem. The administration struggles to keep alumni informed about their employment status. Despite efforts to reach out all the graduates quarterly, some alumni do not respond. The lack of responsiveness from certain alumni to administrative notifications asking for the latest information on graduate’s employment status, making it difficult for the administration to stay informed about the graduate’s employment status. Specifically, the present study seeks to answer the following questions:</dd>
 1. What is the current process used by the planning office of the university in terms of managing its alumni ‘s employability data and records?
+	
 2. What is the level of difficulty encountered by Central Philippines State University Planning Office and its personnel of different campuses in terms of;
-	⋅⋅* Notification of alumni student to fill-up employability tracer form.
-	⋅⋅* Consolidation of employability of the alumni students per campuses.
-	⋅⋅* Representation of percentage pf employed students.
+  * Notification of alumni student to fill-up employability tracer form.
+  * Consolidation of employability of the alumni students per campuses.
+  * Representation of percentage pf employed students.
+
 3. What are the technical requirements needed in the Development of Alumni Tracer Management System?
+
 4. How efficient and effective is the development of Alumni Tracer Management System?
+
 </dl>
 
 ### Objectives 
@@ -26,9 +30,13 @@ The Development of Alumni Tracer Management System is an important project for t
 	A web-based online application for alumni, entitled “Development of Alumni Tracer Management System” that the main objectives is to keep alumni linked to the institution while also allowing the administrations to keep track of them. This is the only option to maintain contact with the former students. More specifically, this study aimed to create database system to keep all the files of the alumni.
 Specifically, this project aims to:
 1. To maintain the long-term record of all the college graduates.
+
 2. To properly manage the information ‘s of the alumni.
+
 3. To immediately notify the alumni about the school news, events and other activities through push notification.
+
 4. To keep track of the employment status of the alumni.
+
 5. Analyze well the scope of your study/ system to capacitate all the objectives that can be met by your system.l
 
 ### Significance of the Study
@@ -45,10 +53,16 @@ This capstone project entitled “Development of Alumni Tracer Management System
 ### Definition of Terms
 
 `Administrator`. In this study, it is the one who manage the system, collect data, create a form
+
 `Sub-Admin`. It is the one who send push notification and inform to the alumni. 
+
 `Alumni`. In this study means that the former student who has either attended or graduated already in the institutions.
+
 `Database`. This study means that the storage of the system where the researchers can store files.
+
 `Web-Based`. In this study, refers to the network connections of the system.
-Push Notification. This study serves as the command that the researchers used to send notifications to the alumni.
+
+`Push Notification`. This study serves as the command that the researchers used to send notifications to the alumni.
+
 - include here all the high technical terms that can be seen both in documents and system.
 - must be alphabetical
