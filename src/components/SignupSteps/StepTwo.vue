@@ -3,10 +3,10 @@
 <template>
     <div class="stp step-2">
           <div class="header">
-            <h1 class="title">Select your plan</h1>
-            <p class="exp">You have the option of monthly or yearly billing.</p>
+            <h1 class="title">School and Course information</h1>
+            <p class="exp">Select the school you graduated and course.</p>
           </div>
-          <form>
+          <form @submit.prevent>
             <div class="plan-card selected">
               <img src="@/assets/images/icon-arcade.svg" alt="arcade" />
               <div class="plan-info chosen">
@@ -38,8 +38,8 @@
             <p class="yearly">Yearly</p>
           </div>
           <div class="btns">
-            <button class="prev-stp" type="button">Go Back</button>
-            <button class="next-stp" type="submit">Next Step</button>
+            <button class="prev-stp" type="button" @click.prevent="$emit('prevStep')">Go Back</button>
+            <button class="next-stp" type="submit"  @click.prevent="$emit('nextStep')">Next Step</button>
           </div>
         </div>
 </template>
@@ -47,7 +47,7 @@
 <style>
     /* STEP 2 */
 .step-2 {
-  display: none;
+  display: flex;
   width: 90%;
 }
 .step-2 form {

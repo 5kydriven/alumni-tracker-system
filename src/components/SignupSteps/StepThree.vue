@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
      <div class="stp step-3">
           <div class="header">
@@ -31,8 +34,8 @@
             </div>
           </form>
           <div class="btns">
-            <button class="prev-stp" type="button">Go Back</button>
-            <button class="next-stp" type="submit">Next Step</button>
+            <button class="prev-stp" type="button"  @click.prevent="$emit('prevStep')">Go Back</button>
+            <button class="next-stp" type="submit"  @click.prevent="$emit('nextStep')">Next Step</button>
           </div>
         </div>
 </template>
@@ -40,7 +43,7 @@
 <style>
 /* STEP 3 */
 .step-3 {
-  display: none;
+  display: flex;
   width: 80%;
 }
 .step-3 form {

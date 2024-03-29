@@ -1,31 +1,42 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-  import '@/assets/test.css'
-  import Sidebar from '@/components/SignupSteps/Sidebar.vue'
-  import StepOne from '@/components/SignupSteps/StepOne.vue'
-  import StepTwo from '@/components/SignupSteps/StepTwo.vue'
-  import StepThree from '@/components/SignupSteps/StepThree.vue'
-  import StepFour from '@/components/SignupSteps/StepFour.vue'
-  import StepFive from '@/components/SignupSteps/StepFive.vue'
+import '@/assets/test.css'
+import Sidebar from '@/components/SignupSteps/Sidebar.vue'
+import StepOne from '@/components/SignupSteps/StepOne.vue'
+import StepTwo from '@/components/SignupSteps/StepTwo.vue'
+import StepThree from '@/components/SignupSteps/StepThree.vue'
+import StepFour from '@/components/SignupSteps/StepFour.vue'
+import StepFive from '@/components/SignupSteps/StepFive.vue'
+import { ref } from 'vue'
+
+const activeStep = ref(1)
+
+function next() {
+  activeStep.value++
+  console.log(activeStep.value)
+}
+
+function back() {
+  activeStep.value--
+  console.log(activeStep.value)
+}
 </script>
 
 <template>
   <div class="body">
     <div class="form">
       <div class="form-container">
+        <Sidebar :currentStep="activeStep" />
 
-        <Sidebar />
+        <StepOne @nextStep="next" v-if="activeStep == 1" />
 
-        <StepOne />
+        <StepTwo @prevStep="back" @nextStep="next" v-if="activeStep == 2" />
 
-        <StepTwo />
+        <StepThree @prevStep="back" @nextStep="next" v-if="activeStep == 3" />
 
-        <StepThree />       
+        <StepFour @prevStep="back" @nextStep="next" v-if="activeStep == 4" />
 
-        <StepFour />        
-
-        <StepFive />
-
+        <StepFive v-if="activeStep == 5" />
       </div>
     </div>
   </div>
