@@ -5,22 +5,7 @@
       <p class="exp">Double-check everything looks OK before confirming.</p>
     </div>
     <div class="selection-box">
-      <div class="selection-container">
-        <div class="selected-plan">
-          <p class="plan-name">Arcade(Monthly)</p>
-          <p class="plan-price">$9/mo</p>
-        </div>
-        <hr />
-        <div class="addons">
-          <template>
-            <div class="selected-addon">
-              <span class="service-name">Online serivice</span>
-              <span class="servic-price">+$1/mo</span>
-            </div>
-          </template>
-        </div>
-      </div>
-      <p class="total">Total (per month) <b>+$12/mo</b></p>
+      
     </div>
     <div class="btns">
       <button class="prev-stp" type="button" @click.prevent="$emit('prevStep')">Go Back</button>
