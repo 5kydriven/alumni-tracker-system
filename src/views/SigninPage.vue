@@ -30,6 +30,9 @@ import Navbar from '@/components/Navbar.vue'
             />
             <label for="floatingPassword">Password</label>
           </div>
+          <button type="button" class="btn btn-primary">
+            Sign in
+          </button>
         </form>
       </div>
     </div>

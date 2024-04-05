@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SigninPage from '@/views/SigninPage.vue'
 import SignupPage from '@/views/SignupPage.vue'
 import HomePage from '@/views/HomePage.vue'
-import test from '@/views/Test.vue'
+import SubAdminPage from '@/views/SubAdminPage.vue'
+import Dashboard from '@/components/SubAdmin/Dashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,9 +24,14 @@ const router = createRouter({
       component: SigninPage
     },
     {
-      path: '/test',
-      name: 'test',
-      component: test
+      path: '/subAdmin',
+      name: 'subAdmin',
+      component: SubAdminPage,
+      children: [
+        {
+          path: 'dashboard', component: Dashboard
+        }
+      ]
     },
   ]
 })
