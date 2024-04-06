@@ -4,6 +4,7 @@ import SignupPage from '@/views/SignupPage.vue'
 import HomePage from '@/views/HomePage.vue'
 import SubAdminPage from '@/views/SubAdminPage.vue'
 import Dashboard from '@/components/SubAdmin/Dashboard.vue'
+import AlumniPage from '@/components/SubAdmin/AlumniPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,15 +25,22 @@ const router = createRouter({
       component: SigninPage
     },
     {
-      path: '/subAdmin',
-      name: 'subAdmin',
+      path: '/subadmin',
+      name: 'subadmin',
       component: SubAdminPage,
       children: [
         {
-          path: 'dashboard', component: Dashboard
-        }
+          path: '',
+          name: 'subadmin-child',
+          component: Dashboard
+        },
+        {
+          path: 'alumni',
+          name: 'alumni',
+          component: AlumniPage
+        },
       ]
-    },
+    }
   ]
 })
 
