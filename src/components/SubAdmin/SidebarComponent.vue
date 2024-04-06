@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import Navbar from './SidebarNavbar.vue'
 </script>
 
@@ -13,8 +14,8 @@ import Navbar from './SidebarNavbar.vue'
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
       <ul class="space-y-2 font-medium">
         <li>
-          <a
-            href="#"
+          <RouterLink
+            :to="{ name: 'subadmin-child' }"
             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           >
             <svg
@@ -32,11 +33,11 @@ import Navbar from './SidebarNavbar.vue'
               />
             </svg>
             <span class="ms-3">Dashboard</span>
-          </a>
+          </RouterLink>
         </li>
         <li>
-          <a
-            href="#"
+          <RouterLink
+            :to="{ name: 'alumni' }"
             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
           >
             <svg
@@ -51,7 +52,7 @@ import Navbar from './SidebarNavbar.vue'
               />
             </svg>
             <span class="flex-1 ms-3 whitespace-nowrap">Alumni's</span>
-          </a>
+          </RouterLink>
         </li>
       </ul>
     </div>
