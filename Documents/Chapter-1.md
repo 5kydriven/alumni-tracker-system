@@ -42,7 +42,7 @@ Specifically, this project aims to:
 
 4. To keep track of the employment status of the alumni.
 
-5. Analyze well the scope of your study/ system to capacitate all the objectives that can be met by your system.l
+`Analyze well the scope of your study/ system to capacitate all the objectives that can be met by your system`
 
 ### Significance of the Study
 
@@ -58,7 +58,7 @@ Specifically, this project aims to:
 
 ### Scope and limitations
 
-This capstone project entitled “Development of Alumni Tracer Management System” is focused on the development of an application in managing and accessing alumni data, which is important for maintaining connections with former students. Only monitoring alumni activity, handle data, and enhance contact between the university and its graduates. It creates simple interfaces for alumni to update their information easily. This system is only available to the graduates of Central Philippines State University Campuses. Student will not be able to utilize the system because it contains confidential information. Specify the scope and limitations of collecting alumnis data. Also state that this system is capable of consolidating all alumnis data of each campus of CPSU
+This capstone project entitled “Development of Alumni Tracer Management System” is focused on the development of an application in managing and accessing alumni data, which is important for maintaining connections with former students. Only monitoring alumni activity, handle data, and enhance contact between the university and its graduates. It creates simple interfaces for alumni to update their information easily. This system is only available to the graduates of Central Philippines State University Campuses. Student will not be able to utilize the system because it contains confidential information. `Specify the scope and limitations of collecting alumnis data. Also state that this system is capable of consolidating all alumnis data of each campus of CPSU.`
 
 ### Definition of Terms
 
