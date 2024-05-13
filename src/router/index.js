@@ -1,10 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SigninPage from '@/views/SigninPage.vue'
-import SignupPage from '@/views/SignupPage.vue'
-import HomePage from '@/views/HomePage.vue'
-import SubAdminPage from '@/views/SubAdminPage.vue'
-import Dashboard from '@/components/SubAdmin/Dashboard.vue'
-import AlumniPage from '@/components/SubAdmin/AlumniPage.vue'
+import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,34 +7,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: HomeView
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignupPage
+      path: '/admin',
+      name: 'subAdmin',
+      component: () => import('../views/SubAdminView.vue'),
     },
     {
       path: '/signin',
       name: 'signin',
-      component: SigninPage
-    },
-    {
-      path: '/subadmin',
-      name: 'subadmin',
-      component: SubAdminPage,
-      children: [
-        {
-          path: '',
-          name: 'subadmin-child',
-          component: Dashboard
-        },
-        {
-          path: 'alumni',
-          name: 'alumni',
-          component: AlumniPage
-        },
-      ]
+      component: () => import('../views/AuthView.vue'),
     }
   ]
 })
