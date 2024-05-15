@@ -10,15 +10,27 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/admin',
-      name: 'subAdmin',
-      component: () => import('../views/SubAdminView.vue'),
-    },
-    {
       path: '/signin',
       name: 'signin',
       component: () => import('../views/AuthView.vue'),
-    }
+    },
+    {
+      path: '/admin',
+      name: 'subAdmin',
+      component: () => import('../views/SubAdminView.vue'),
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+          component: () => import('../pages/DashboardPage.vue')
+        },
+        {
+          path: '/alumni',
+          name: 'alumni',
+          component: () => import('../pages/AlumniPage.vue')
+        },
+      ]
+    },
   ]
 })
 
