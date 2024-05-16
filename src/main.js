@@ -5,7 +5,8 @@ import '@/assets/base.css'
 import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config';
-import lara from './presets/lara'
+// import lara from './presets/lara'
+import aura from './presets/aura'
 import 'primeicons/primeicons.css'
 
 //in main.js
@@ -31,6 +32,7 @@ import OverlayPanel from 'primevue/overlaypanel';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Dialog from 'primevue/dialog';
+// import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 
 const app = createApp(App)
@@ -101,7 +103,7 @@ app.use(PrimeVue, {
     //         }
     //     }
     // },
-    pt: lara,
+    pt: aura,
 })
 app.use(ToastService);
 app.use(createPinia())
