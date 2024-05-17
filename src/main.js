@@ -32,13 +32,15 @@ import OverlayPanel from 'primevue/overlaypanel';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Dialog from 'primevue/dialog';
+import InputMask from 'primevue/inputmask';
+
 // import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 
 const app = createApp(App)
 
 
-
+app.component('InputMask', InputMask)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('ColumnGroup', ColumnGroup)

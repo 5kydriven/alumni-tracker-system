@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <DataTable v-model:filters="filters" :value="store.alumni" ref="dt" scrollable scroll-height="450px"
-            showGridlines removableSort filterDisplay="menu">
+            showGridlines removableSort filterDisplay="menu" class="z-30">
             <template #header>
                 <div class="flex justify-between">
                     <div class="flex gap-2">
@@ -75,7 +75,7 @@
 
     <Dialog v-model:visible="store.alumniDialog" :style="{ width: '700px' }" header="Add Alumni" :modal="true"
         class="p-fluid">
-        <AlumniForm @cancel="openNew" />
+        <AlumniForm />
     </Dialog>
     <Toast />
 </template>
@@ -99,9 +99,6 @@ const dt = ref();
 
 const openNew = () => {
     store.alumniDialog = !store.alumniDialog
-    if (!store.alumniDialog) {
-        toast.add({ severity: 'success', summary: 'Successful', detail: 'Click', life: 2000 });
-    }
 }
 
 const initFilters = () => {

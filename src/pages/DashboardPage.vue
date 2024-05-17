@@ -43,12 +43,12 @@ import BarChart from '../components/charts/BarChart.vue'
         </div>
     </div>
 
-    <div class="h-96 grid grid-cols-12 gap-2 ">
+    <!-- <div class="h-96 grid grid-cols-12 gap-2 ">
         <div class="col-span-8 border shadow-lg shadow-2 rounded flex items-center">
             <BarChart />
         </div>
         <div class="col-span-4 border shadow-lg shadow-2 rounded flex items-center justify-center">
             <PieChart />
         </div>
-    </div>
+    </div> -->
 </template>

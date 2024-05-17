@@ -1,9 +1,9 @@
 <template>
-    <nav class="fixed top-0 z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
-                    <button type="button" @click="emit('isToggle')"
+                    <button v-show="!props.isUser" type="button" @click="emit('isToggle')"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -68,6 +68,10 @@ import {ref} from 'vue'
 const emit = defineEmits(['isToggle'])
 
 const op = ref()
+
+const props = defineProps({
+    isUser: true,
+})
 
 const OpToggle = (event) => {
     op.value.toggle(event);

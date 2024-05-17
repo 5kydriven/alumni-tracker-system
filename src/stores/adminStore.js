@@ -8,6 +8,11 @@ export const useAdminStore = defineStore('admin', () => {
     const adminDialog = ref(false)
 
     const admninRefs = collection(db, "admin");
+
+    const openAdminDialog = () => {
+    adminDialog.value = !adminDialog.value
+    }
+
   
     const getAdmin = () => {
         return new Promise((resolve, reject) => {
@@ -32,6 +37,7 @@ export const useAdminStore = defineStore('admin', () => {
   return {
     getAdmin,
     admin,
-    adminDialog
+    adminDialog,
+    openAdminDialog,
    }
 })
