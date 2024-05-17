@@ -1,13 +1,15 @@
 <template>
     <div class="card">
-        <DataTable v-model:filters="filters" :value="store.alumni" ref="dt" scrollable scroll-height="450px" showGridlines
-            removableSort filterDisplay="menu">
+        <DataTable v-model:filters="filters" :value="store.alumni" ref="dt" scrollable scroll-height="450px"
+            showGridlines removableSort filterDisplay="menu">
             <template #header>
                 <div class="flex justify-between">
                     <div class="flex gap-2">
                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
-                        <Button type="button" icon="pi pi-plus" label="Add" outlined @click="openNew" />
-                        <Button type="button" icon="pi pi-external-link" label="Export" outlined @click="exportCSV($event)"/>
+                        <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined
+                            @click="openNew" />
+                        <Button type="button" icon="pi pi-external-link" label="Export" severity="secondary" outlined
+                            @click="exportCSV($event)" />
 
                     </div>
                     <span class="relative">
@@ -65,11 +67,13 @@
                 </template>
             </Column>
 
-            <Column header="Actions"></Column>
+            <Column header="Actions">
+                
+            </Column>
         </DataTable>
     </div>
 
-    <Dialog v-model:visible="productDialog" :style="{ width: '700px' }" header="Add Alumni" :modal="true"
+    <Dialog v-model:visible="store.alumniDialog" :style="{ width: '700px' }" header="Add Alumni" :modal="true"
         class="p-fluid">
         <AlumniForm @cancel="openNew" />
     </Dialog>
@@ -87,15 +91,15 @@ const toast = useToast();
 const store = useAlumniStore();
 
 const filters = ref();
-const courses = ref(['BSIT', 'BSCRIM'])
+const courses = ref(['BSIT', 'BSCRIM', 'BSBA'])
 const batches = ref([2026, 2024])
-const employment = ref(['Not Track', 'Unemployed'])
-const productDialog = ref(false)
+const employment = ref(['Not Track', 'Unemployed', 'Employed'])
+
 const dt = ref();
 
 const openNew = () => {
-    productDialog.value = !productDialog.value
-    if (!productDialog.value) {
+    store.alumniDialog = !store.alumniDialog
+    if (!store.alumniDialog) {
         toast.add({ severity: 'success', summary: 'Successful', detail: 'Click', life: 2000 });
     }
 }
@@ -124,7 +128,7 @@ const exportCSV = () => {
 };
 
 onMounted(async () => {
-    await store.filteredAlumni(); // Wait for the data to be fetched
+    await store.filteredAlumni("Kabankalan City"); // Wait for the data to be fetched
     // loading.value = false;
 })
 </script>
