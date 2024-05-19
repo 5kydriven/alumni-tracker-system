@@ -29,9 +29,8 @@ admin.initializeApp({
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   res.send("hello world");
-  console.log("hello world");
 });
 
 app.post('/createUser', async (req, res) => {
