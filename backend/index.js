@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express')
 const admin = require('firebase-admin');
-const cors = require('cors');
+// const cors = require('cors');
 const app = express()
 const port = process.env.port || 8000;
 
@@ -25,7 +25,7 @@ admin.initializeApp({
   databaseURL: process.env.FIREBASE_URL,
 });
 
-app.use(cors());
+// app.use(cors());
 
 app.use(express.json());
 
