@@ -3,7 +3,7 @@ const express = require('express')
 const admin = require('firebase-admin');
 const cors = require('cors');
 const app = express()
-const port = 8000;
+const port = process.env.port || 8000;
 
 const serviceAccount = {
   "type": process.env.FIREBASE_TYPE,
@@ -28,10 +28,10 @@ admin.initializeApp({
 app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
-app.use("/hello", (req, res) => {
+app.get("/", (req, res) => {
   res.send("hello world");
+  console.log("hello world");
 });
 
 app.post('/createUser', async (req, res) => {
