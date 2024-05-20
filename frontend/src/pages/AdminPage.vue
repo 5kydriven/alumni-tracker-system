@@ -7,7 +7,7 @@
                     <div class="flex gap-2">
                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
                         <Button type="button" icon="pi pi-plus" label="Add" outlined severity="secondary"
-                            @click="openAdminDialog" />
+                            @click="store.openAdminDialog" />
                         <Button type="button" icon="pi pi-external-link" label="Export" outlined severity="secondary"
                             @click="exportCSV($event)" />
                     </div>
@@ -46,7 +46,7 @@
                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                 </li>
                                 <li>
-                                    <a @click.prevent="store.deleteAdmin(data.id)"
+                                    <a @click.prevent="deleteAdmin(data.id)"
                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >Delete</a>
                                 </li>
                             </ul>
@@ -57,22 +57,26 @@
         </DataTable>
     </div>
 
-    <Dialog v-model:visible="adminDialog" :style="{ width: '25rem' }" header="Add Administrator" :modal="true"
+    <Dialog v-model:visible="store.adminDialog" :style="{ width: '25rem' }" header="Add Administrator" :modal="true"
         class="p-fluid">
         <AdminForm />
     </Dialog>
+    <Toast />
 </template>
 
 <script setup>
-import { onMounted, ref, nextTick } from 'vue';
+import { onMounted, ref } from 'vue';
 import AdminForm from '@/components/AdminForm.vue';
 import { useAdminStore } from '@/stores/AdminStore';
+import { useToast } from 'primevue/usetoast';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '@/stores/firebase';
 
+const toast = useToast();
 const store = useAdminStore();
 
 const filters = ref();
 const dt = ref();
-const adminDialog = ref(false);
 const overlayPanels = ref({});
 
 const setOverlayPanelRef = (id) => (el) => {
@@ -88,10 +92,6 @@ const toggle = (event, id) => {
     if (overlayPanel) {
         overlayPanel.toggle(event);
     }
-};
-
-const openAdminDialog = () => {
-    adminDialog.value = !adminDialog.value;
 };
 
 const initFilters = () => {
@@ -112,6 +112,30 @@ const clearFilter = () => {
 const exportCSV = () => {
     dt.value.exportCSV();
 };
+
+const deleteAdmin = async (uid) => {
+    try {
+        const response = await fetch('http://localhost:8000/deleteUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                uid: uid
+            }),
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok' + response.statusText);
+        }
+        await deleteDoc(doc(db, "admin", uid));
+        const data = await response.json();
+        toast.add({ severity: 'success', summary: 'Successful', detail: 'Successfully deleted', life: 2000 });
+        console.log(data.msg)
+    } catch (err) {
+        console.log(err)
+    }
+
+}
 
 onMounted(async () => {
     await store.getAdmin();

@@ -68,8 +68,6 @@ const adminData = ref({
     image: ""
 });
 
-
-
 const addAdmin = async (cred) => {
     loading.value = true
     try {
@@ -89,7 +87,7 @@ const addAdmin = async (cred) => {
         const data = await response.json();
 
         if (!file) {
-            await getDownloadURL(storageRef(storage, 'profiles/defaultuser.png')).then((url) => {
+            await getDownloadURL(storageRef(storage, 'profile/defaultuser.png')).then((url) => {
                 adminData.value.image = url;
             })
         } else {

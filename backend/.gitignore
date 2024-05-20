@@ -30,4 +30,6 @@ coverage
 *.tsbuildinfo
 
 serviceKey.json
+
 .env
+key.json

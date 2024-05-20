@@ -85,7 +85,8 @@
                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
                                 <li>
                                     <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
+                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white "
+                                        @click="showProfile">Show</a>
                                 </li>
                                 <li>
                                     <a href="#"
@@ -102,6 +103,10 @@
     <Dialog v-model:visible="store.alumniDialog" :style="{ width: '700px' }" header="Add Alumni" :modal="true"
         class="p-fluid">
         <AlumniForm />
+    </Dialog>
+    <Dialog v-model:visible="profile" :style="{ width: '700px' }" header="Alumni Profile" :modal="true"
+        class="p-fluid">
+        hello
     </Dialog>
     <Toast />
 </template>
@@ -125,10 +130,15 @@ const employment = ref(['Not Track', 'Unemployed', 'Employed'])
 const campus = ref(['San Carlos City', 'Kabankalan City'])
 const dt = ref();
 const op = ref();
+const profile = ref(false);
 
 const toggle = (event) => {
     console.log("click")
     op.value.toggle(event);
+}
+
+const showProfile = () => {
+    profile.value = !profile.value
 }
 
 const openNew = () => {

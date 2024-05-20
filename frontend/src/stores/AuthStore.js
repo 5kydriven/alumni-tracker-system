@@ -43,5 +43,6 @@ export const useAuthStore = defineStore('auth', () => {
     init,
     userId,
     campus,
+
    }
 })

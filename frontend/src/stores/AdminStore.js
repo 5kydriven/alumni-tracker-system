@@ -8,6 +8,8 @@ export const useAdminStore = defineStore('Store', () => {
     const employedAlumni = ref()
     const unemployedAlumni = ref()
     const admin = ref();
+    const adminDialog = ref(false)
+    
 
     const admninRefs = collection(db, "admin");
 
@@ -91,27 +93,11 @@ export const useAdminStore = defineStore('Store', () => {
         }
     }
 
-    const deleteAdmin = async (uid) => {
-        try {
-            const response = await fetch('http://localhost:8000/deleteUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    uid: uid
-                }),
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
     
-            const data = await response.json();
-            console.log(data.msg)
-        } catch (err) {
-            console.log(err)
-        }
-    }
+
+    const openAdminDialog = () => {
+    adminDialog.value = !adminDialog.value;
+};
 
     return {
         getAllAlumni,
@@ -121,6 +107,7 @@ export const useAdminStore = defineStore('Store', () => {
         getAdmin,
         admin,
         getOverallAlumni,
-        deleteAdmin,
+        openAdminDialog,
+        adminDialog,
     }
 })
