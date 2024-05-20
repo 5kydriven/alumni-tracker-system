@@ -53,7 +53,7 @@ export const useAdminStore = defineStore('Store', () => {
                 onSnapshot(admninRefs, (querySnapshot) => {
                     let a = [];
                     querySnapshot.forEach((doc) => {
-                        a.push({...doc.data()})
+                        a.push({...doc.data(), id: doc.id})
                     });
                     admin.value = a;
                     resolve(); // Resolve the promise when the data is fetched
@@ -85,10 +85,31 @@ export const useAdminStore = defineStore('Store', () => {
                 totalAlumni.value = alumni.length;
                 employedAlumni.value = employedCount;
                 unemployedAlumni.value = unemployedCount;
-                console.log(alumni)
             });
         } catch (err) {
             console.log(err);
+        }
+    }
+
+    const deleteAdmin = async (uid) => {
+        try {
+            const response = await fetch('http://localhost:8000/deleteUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    uid: uid
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
+            }
+    
+            const data = await response.json();
+            console.log(data.msg)
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -99,6 +120,7 @@ export const useAdminStore = defineStore('Store', () => {
         unemployedAlumni,
         getAdmin,
         admin,
-        getOverallAlumni
+        getOverallAlumni,
+        deleteAdmin,
     }
 })

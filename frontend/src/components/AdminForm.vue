@@ -73,7 +73,6 @@ const adminData = ref({
 const addAdmin = async (cred) => {
     loading.value = true
     try {
-
         const response = await fetch('http://localhost:8000/createUser', {
             method: 'POST',
             headers: {

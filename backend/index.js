@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express')
 const admin = require('firebase-admin');
-// const cors = require('cors');
+const cors = require('cors');
 const app = express()
 const port = process.env.port || 8000;
 
@@ -25,7 +25,7 @@ admin.initializeApp({
   databaseURL: process.env.FIREBASE_URL,
 });
 
-// app.use(cors());
+app.use(cors());
 
 app.use(express.json());
 
@@ -44,6 +44,16 @@ app.post('/createUser', async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
     res.status(400).send("error");
+  }
+});
+
+app.post('/deleteUser', async (req, res) => {
+  const {uid} = req.body
+  try {
+    await admin.getAuth().deleteUser(id)
+    res.status(200).send({msg: 'Succesfully deleted' + uid});
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 

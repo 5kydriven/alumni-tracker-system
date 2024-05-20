@@ -123,9 +123,8 @@ const courses = ref(['BSIT', 'BSCRIM', 'BSBA'])
 const batches = ref([2026, 2024])
 const employment = ref(['Not Track', 'Unemployed', 'Employed'])
 const campus = ref(['San Carlos City', 'Kabankalan City'])
-const op = ref();
-
 const dt = ref();
+const op = ref();
 
 const toggle = (event) => {
     console.log("click")

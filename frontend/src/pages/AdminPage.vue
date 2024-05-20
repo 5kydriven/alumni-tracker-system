@@ -34,6 +34,26 @@
             </Column>
             <Column field="campus" header="Campus"></Column>
             <Column field="email" header="Email"></Column>
+            <Column header="Actions" class="text-center">
+                <template #body="{ data }">
+                    <i class="pi pi-ellipsis-v cursor-pointer" @click="toggle($event, data.id)"></i>
+                    <OverlayPanel :ref="setOverlayPanelRef(data.id)">
+                        <div
+                            class="z-10 w-28 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                </li>
+                                <li>
+                                    <a @click.prevent="store.deleteAdmin(data.id)"
+                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </OverlayPanel>
+                </template>
+            </Column>
         </DataTable>
     </div>
 
@@ -44,19 +64,35 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import AdminForm from '@/components/AdminForm.vue'
+import { onMounted, ref, nextTick } from 'vue';
+import AdminForm from '@/components/AdminForm.vue';
 import { useAdminStore } from '@/stores/AdminStore';
 
 const store = useAdminStore();
 
 const filters = ref();
 const dt = ref();
-const adminDialog = ref(false)
+const adminDialog = ref(false);
+const overlayPanels = ref({});
+
+const setOverlayPanelRef = (id) => (el) => {
+    if (el) {
+        overlayPanels.value[id] = el;
+    } else {
+        delete overlayPanels.value[id];
+    }
+};
+
+const toggle = (event, id) => {
+    const overlayPanel = overlayPanels.value[id];
+    if (overlayPanel) {
+        overlayPanel.toggle(event);
+    }
+};
 
 const openAdminDialog = () => {
-    adminDialog.value = !adminDialog.value
-}
+    adminDialog.value = !adminDialog.value;
+};
 
 const initFilters = () => {
     filters.value = {
@@ -79,5 +115,5 @@ const exportCSV = () => {
 
 onMounted(async () => {
     await store.getAdmin();
-})
+});
 </script>
