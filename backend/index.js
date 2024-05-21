@@ -12,8 +12,13 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-app.use(cors());
+// Configure CORS
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace this with your actual frontend URL
+  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
