@@ -1,9 +1,24 @@
+<script setup>
+import { ref } from 'vue';
+const emit = defineEmits(['isToggle'])
+
+// const props = defineProps({
+//     isUser: Boolean,
+// })
+
+const op = ref();
+
+const OpToggle = (event) => {
+    op.value.toggle(event);
+}
+</script>
+
 <template>
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
-                    <button v-show="!props.isUser" type="button" @click="emit('isToggle')"
+                    <button type="button" @click="emit('isToggle')"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                         <span class="sr-only">Open sidebar</span>
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -13,8 +28,8 @@
                             </path>
                         </svg>
                     </button>
-                    <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+                    <a href="https://cpsu.edu.ph/" class="flex ms-2 md:me-24">
+                        <img src="/cpsuLogo.png" class="h-8 me-3" alt="FlowBite Logo" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">CPSU</span>
                     </a>
@@ -22,7 +37,7 @@
                 <div class="flex items-center">
                     <div class="flex items-center ms-3">
                         <div>
-                            <button type="button" @click.prevent="OpToggle"
+                            <button type="button" @click="OpToggle"
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
                                 <img class="w-8 h-8 rounded-full"
                                     src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
@@ -48,8 +63,7 @@
                                             role="menuitem">Settings</a>
                                     </li>
                                     <li>
-                                        <a @click="logoutUser"
-                                            class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        <a class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                             role="menuitem">Sign out</a>
                                     </li>
                                 </ul>
@@ -61,30 +75,3 @@
         </div>
     </nav>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import { auth } from '@/stores/firebase';
-import { signOut } from "firebase/auth";
-
-const emit = defineEmits(['isToggle'])
-
-const op = ref()
-
-const props = defineProps({
-    isUser: false,
-})
-
-const OpToggle = (event) => {
-    op.value.toggle(event);
-}
-
-const logoutUser = async () => {
-    try {
-        await signOut(auth);
-        console.log("User logged out successfully");
-    } catch (err) {
-        console.error("Error logging out:", err);
-    }
-};
-</script>

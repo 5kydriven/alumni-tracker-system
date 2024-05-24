@@ -5,13 +5,14 @@
 <script setup>
 const addData = async () => {
     try {
-        const response = await fetch('http://localhost:8000/deleteUser', {
+        const response = await fetch('http://localhost:8080/createUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                uid: 'VKIY8Qzj1MOthdL9JW8nbqJW0k12'
+                email: 'test@gmail.com',
+                password: '123456'
             }),
         });
         if (!response.ok) {
@@ -22,6 +23,5 @@ const addData = async () => {
     } catch (error) {
         console.error('Error creating user:', error.message);
     }
-
 }
 </script>
