@@ -1,8 +1,17 @@
-// controllers/userController.js
 import admin from 'firebase-admin';
 
 export const importAlumni = async (req, res) => {
     const data = req.body;
+
+    // Function to scramble a string randomly
+    const scrambleString = (str) => {
+        const arr = str.split('');
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr.join('');
+    };
 
     try {
         const db = admin.firestore();
@@ -14,7 +23,8 @@ export const importAlumni = async (req, res) => {
                 const name = obj.Name;
                 const words = name.split(' '); // Split the name into words
                 const lastName = words[words.length - 1]; // Get the last word
-                const email = `${lastName.toLowerCase() + obj.Batch}cpsu@example.com`; // Generate email based on the last word
+                const scrambledLastName = scrambleString(lastName); // Scramble the last word
+                const email = `${scrambledLastName.toLowerCase() + obj.Batch}cpsu@example.com`; // Generate email based on the scrambled last word
                 const password = '123456'; // Default password
 
                 // Create user with generated email and default password
@@ -37,10 +47,8 @@ export const importAlumni = async (req, res) => {
 
         // Commit the batch operation
         await batch.commit();
-
-        res.status(200).send({ message: 'Users created and documents uploaded successfully' });
+        res.status(200).send({ message: 'File imported successfully' });
     } catch (error) {
-        console.error('Error importing users:', error);
         res.status(500).send({ error: 'Failed to import users' });
     }
-}
+};

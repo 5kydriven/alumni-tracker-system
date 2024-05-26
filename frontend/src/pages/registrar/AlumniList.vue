@@ -8,15 +8,15 @@
                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
                         <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined />
                         <Button type="button" icon="pi pi-file-export" label="Export" severity="secondary" outlined
-                            @click="exportCSV()" />
+                            @click="exportCSV()" :disabled="dt" />
                         <Button type="button" icon="pi pi-file-import" label="Import" severity="secondary" outlined
-                            @click="toggleImport" />
+                            @click="store.openDialog('top')" />
 
                     </div>
                     <span class="relative">
                         <i class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
                         <InputText v-model="filters['global'].value" placeholder="Keyword Search"
-                            class="pl-10 font-normal" />
+                            class="pl-10 font-normal" :disabled="filters" />
                     </span>
                 </div>
             </template>
@@ -88,17 +88,27 @@
         </DataTable>
     </div>
 
-    <Dialog v-model:visible="importDialog" :style="{ width: '40rem' }" modal header="Import File">
-        <FileUpload name="demo[]" url="/api/upload" @upload="onAdvancedUpload($event)" :multiple="false" accept=".csv">
-            <template #empty>
-                <p>Drag and drop files to here to upload.</p>
-            </template>
-        </FileUpload>
+    <Dialog v-model:visible="store.dialogVisible" :style="{ width: '40rem' }" :position="store.dialogPosition"
+        :draggable="false" modal header="Import File">
+        <ImportForm @formSuccess="onFormSuccess" />
     </Dialog>
+
+    <Toast />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import ImportForm from '@/components/ImportForm.vue';
+import { useAlumniStore } from '@/stores/AlumniStore.js'
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
+const store = useAlumniStore();
+
+const onFormSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
+};
+
 
 const filters = ref();
 const courses = ref(['BSIT', 'BSCRIM', 'BSBA'])
@@ -107,11 +117,6 @@ const employment = ref(['Not Track', 'Unemployed', 'Employed'])
 const dt = ref();
 const op = ref();
 const profile = ref(false);
-const importDialog = ref(false);
-
-const toggleImport = () => {
-    importDialog.value = !importDialog.value
-}
 
 const toggle = (event) => {
     op.value.toggle(event);
