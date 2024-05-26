@@ -4,6 +4,7 @@ import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
 import routes from './routes/index.js';
+import bodyParser from 'body-parser';
 
 const app = express();
 dotenv.config();
@@ -29,6 +30,12 @@ admin.initializeApp({
 
 app.use(cors());
 app.use(express.json());
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Parse application/json
+app.use(bodyParser.json());
+
 app.use('/', routes);
 
 app.listen(port, () => {

@@ -7,8 +7,10 @@
                     <div class="flex gap-2">
                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
                         <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined />
-                        <Button type="button" icon="pi pi-file-export" label="Export" severity="secondary" outlined />
-                        <Button type="button" icon="pi pi-file-import" label="Import" severity="secondary" outlined />
+                        <Button type="button" icon="pi pi-file-export" label="Export" severity="secondary" outlined
+                            @click="exportCSV()" />
+                        <Button type="button" icon="pi pi-file-import" label="Import" severity="secondary" outlined
+                            @click="toggleImport" />
 
                     </div>
                     <span class="relative">
@@ -86,10 +88,18 @@
         </DataTable>
     </div>
 
+    <Dialog v-model:visible="importDialog" :style="{ width: '40rem' }" modal header="Import File">
+        <FileUpload name="demo[]" url="/api/upload" @upload="onAdvancedUpload($event)" :multiple="false" accept=".csv">
+            <template #empty>
+                <p>Drag and drop files to here to upload.</p>
+            </template>
+        </FileUpload>
+    </Dialog>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+
 const filters = ref();
 const courses = ref(['BSIT', 'BSCRIM', 'BSBA'])
 const batches = ref([2026, 2024])
@@ -97,6 +107,11 @@ const employment = ref(['Not Track', 'Unemployed', 'Employed'])
 const dt = ref();
 const op = ref();
 const profile = ref(false);
+const importDialog = ref(false);
+
+const toggleImport = () => {
+    importDialog.value = !importDialog.value
+}
 
 const toggle = (event) => {
     op.value.toggle(event);
@@ -124,8 +139,8 @@ const clearFilter = () => {
     initFilters();
 };
 
-// const exportCSV = () => {
-//     dt.value.exportCSV();
-// };
+const exportCSV = () => {
+    dt.value.exportCSV();
+};
 
 </script>
