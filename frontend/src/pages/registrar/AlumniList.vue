@@ -1,14 +1,14 @@
 <template>
     <div class="card">
-        <DataTable ref="dt" scrollable scroll-height="450px" showGridlines removableSort filterDisplay="menu"
-            class="z-30">
+        <DataTable ref="dt" v-model:filters="filters" scrollable scroll-height="450px" showGridlines removableSort
+            filterDisplay="menu" class="z-30" :value="store.alumni">
             <template #header>
                 <div class="flex justify-between">
                     <div class="flex gap-2">
                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
-                        <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined />
+                        <!-- <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined /> -->
                         <Button type="button" icon="pi pi-file-export" label="Export" severity="secondary" outlined
-                            @click="exportCSV()" :disabled="dt" />
+                            @click="exportCSV()" :disabled="!store.alumni" />
                         <Button type="button" icon="pi pi-file-import" label="Import" severity="secondary" outlined
                             @click="store.openDialog('top')" />
 
@@ -16,7 +16,7 @@
                     <span class="relative">
                         <i class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
                         <InputText v-model="filters['global'].value" placeholder="Keyword Search"
-                            class="pl-10 font-normal" :disabled="filters" />
+                            class="pl-10 font-normal" :disabled="!store.alumni" />
                     </span>
                 </div>
             </template>
@@ -28,10 +28,10 @@
                 </template>
             </Column>
 
-            <Column field="fullname" sortable header="Name">
+            <Column field="Name" sortable header="Name">
             </Column>
 
-            <Column field="course" header="Course" :showFilterMatchModes="false">
+            <Column field="Course" header="Course" :showFilterMatchModes="false">
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="courses" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -42,7 +42,7 @@
                 </template>
             </Column>
 
-            <Column field="batch" header="Year Graduated" :showFilterMatchModes="false">
+            <Column field="Batch" header="Batch" :showFilterMatchModes="false">
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="batches" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -53,7 +53,7 @@
                 </template>
             </Column>
 
-            <Column field="employment.status" header="Status" :showFilterMatchModes="false">
+            <Column field="Status" header="Status" :showFilterMatchModes="false">
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="employment" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -109,7 +109,6 @@ const onFormSuccess = (message) => {
     toast.add({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
 };
 
-
 const filters = ref();
 const courses = ref(['BSIT', 'BSCRIM', 'BSBA'])
 const batches = ref([2026, 2024])
@@ -129,12 +128,10 @@ const showProfile = () => {
 const initFilters = () => {
     filters.value = {
         global: { value: null },
-        firstname: { value: null },
-        studentId: { value: null },
-        course: { value: null },
-        batch: { value: null },
-        'employment.status': { value: null },
-
+        Name: { value: null },
+        Status: { value: null },
+        Course: { value: null },
+        Batch: { value: null },
     };
 };
 
@@ -148,4 +145,7 @@ const exportCSV = () => {
     dt.value.exportCSV();
 };
 
+onMounted(() => {
+    store.getAlumni();
+})
 </script>
