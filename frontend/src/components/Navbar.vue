@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/AuthStore.js';
+
+const authStore = useAuthStore();
 const emit = defineEmits(['isToggle'])
 
 // const props = defineProps({
@@ -63,7 +66,7 @@ const OpToggle = (event) => {
                                             role="menuitem">Settings</a>
                                     </li>
                                     <li>
-                                        <a class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        <a @click="authStore.logoutUser" class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                             role="menuitem">Sign out</a>
                                     </li>
                                 </ul>

@@ -37,10 +37,17 @@ export const importAlumni = async (req, res) => {
                 obj.email = email;
 
                 // Add document creation to the batch
+                
                 const docRef = db.collection('alumni').doc(userRecord.uid);
                 batch.set(docRef, {
                     ...obj,
+                    isAccountUpdated: false,
                     dateUploaded: admin.firestore.Timestamp.now(),
+                });
+
+                const accountRolesDocRef = db.collection('accountRoles').doc(userRecord.uid);
+                batch.set(accountRolesDocRef, {
+                    role: 'alumni'
                 });
             }
         }

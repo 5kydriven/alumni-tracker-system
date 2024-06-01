@@ -30,6 +30,11 @@ const router = createRouter({
           component: () => import('@/pages/registrar/AlumniList.vue'),
         }
       ],
+    },
+    {
+      path: '/jobseekers',
+      name: 'user-home',
+      component: () => import('@/pages/user/Homepage.vue'),
     }
   ]
 })
