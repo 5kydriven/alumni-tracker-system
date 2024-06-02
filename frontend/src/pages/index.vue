@@ -29,19 +29,19 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required>
             </div>
-            <div class="py-4">
+            <div class="py-4 mb-4">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" v-model="cred.password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required>
             </div>
-            <div class="flex justify-between items-center w-full py-4 mb-4">
+            <!-- <div class="flex justify-between items-center w-full py-4 mb-4">
                 <div>
                     <input type="checkbox" id="ch" class="mr-2" />
                     <label for="ch" class="text-sm md:text-md">Remember me</label>
                 </div>
                 <a class="font-bold text-sm md:text-md cursor-pointer">Forgot password</a>
-            </div>
+            </div> -->
             <Button type="submit" label="Sign In" severity="contrast" :loading="store.loading" />
         </form>
     </div>

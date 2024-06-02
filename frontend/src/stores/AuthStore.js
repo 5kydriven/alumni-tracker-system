@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const roles = await getDoc(doc(db, 'accountRoles', user.uid));
-                const info = await getDoc(doc(db, 'accountRoles', user.uid));
+                const info = await getDoc(doc(db, 'alumni', user.uid));
 
                 localStorage.setItem('uid', user.uid);
                 localStorage.setItem('isUpdated', info.data().isAccountUpdated);
@@ -37,6 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
     const logoutUser = async () => {
         try {
             await signOut(auth);
+            localStorage.clear();
             console.log("User logged out successfully");
         } catch (err) {
             console.error("Error logging out:", err);
