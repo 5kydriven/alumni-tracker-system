@@ -30,7 +30,9 @@ export const importAlumni = async (req, res) => {
                 // Create user with generated email and default password
                 const userRecord = await admin.auth().createUser({
                     email: email,
-                    password: password
+                    password: password,
+                    displayName: name,
+                    emailVerified: true,
                 });
 
                 // Add the user's UID and email to the document data
