@@ -1,48 +1,52 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import { db, auth } from './firebase'
-import { collection, doc, setDoc, getDoc, query, where, onSnapshot, } from "firebase/firestore"; 
-import { onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from 'vue-router'
-
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import { auth, db } from './firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from 'vue-router';
 
 export const useAuthStore = defineStore('auth', () => {
-  const userId = ref();
-  const campus = ref();
+    const loading = ref(false);
+    const role = ref('');
+    const router = useRouter();
 
-  const router = useRouter();
+    const init = () => {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const roles = await getDoc(doc(db, 'accountRoles', user.uid));
+                const info = await getDoc(doc(db, 'alumni', user.uid));
 
-  const init = () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await getDoc(doc(db, "accountRoles", user.uid)).then((data) => {
-          localStorage.setItem('role', data.data().role);
-          if(data.data().campus) {
-            localStorage.setItem('campus', data.data().campus);
-          }
-        })
-        localStorage.setItem('uid', user.uid);
-        const role = localStorage.getItem('role')
-        if(role  == 'superAdmin') {
-          router.push('/superAdmin');
-        } else if (role == 'admin') {
-          router.push('/admin');
-        } else {
-          router.push('/survey');
+                localStorage.setItem('uid', user.uid);
+                localStorage.setItem('isUpdated', info.data().isAccountUpdated);
+                role.value = roles.data().role;
+                // loading.value = true;
+
+                if (role.value === 'registrar') {
+                    router.push('/registrar');
+                } else {
+                    router.push('/jobseekers');
+                }
+
+            } else {
+                router.push('/'); // Redirect to homepage if not authenticated
+            }
+            // loading.value = false;
+        });
+    };
+
+    const logoutUser = async () => {
+        try {
+            await signOut(auth);
+            localStorage.clear();
+            console.log("User logged out successfully");
+        } catch (err) {
+            console.error("Error logging out:", err);
         }
-      } else {
-        localStorage.clear();
-        router.replace('/test');
-      }
-    });
-  }
+    };
 
-
-  return {
-    userId,
-    init,
-    userId,
-    campus,
-
-   }
-})
+    return {
+        loading,
+        init,
+        logoutUser,
+    };
+});

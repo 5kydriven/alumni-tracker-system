@@ -1,17 +1,17 @@
 <script setup>
-import { useRouter, RouterView } from 'vue-router'
-import { onMounted, onBeforeMount } from "vue";
-import { auth, db } from './stores/firebase';
-import { doc, getDoc } from 'firebase/firestore';
-import {useAuthStore} from './stores/AuthStore.js'
+import { RouterView } from 'vue-router';
+import { useAuthStore } from './stores/AuthStore';
+import { onMounted } from 'vue';
 
-const store = useAuthStore();
-
+const authStore = useAuthStore();
 onMounted(() => {
-  store.init();
+  authStore.init();
 })
 </script>
 
 <template>
-  <RouterView />
+  <!-- <div v-if="authStore.loading">Loading...</div>
+  <div v-else> -->
+    <RouterView />
+  <!-- </div> -->
 </template>

@@ -1,22 +1,19 @@
+import './assets/main.css';
+import PrimeVue from 'primevue/config';
+import Aura from '@/presets/aura';
+import 'primeicons/primeicons.css';
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import '@/assets/base.css'
 import App from './App.vue'
 import router from './router'
-import PrimeVue from 'primevue/config';
-// import lara from './presets/lara'
-import aura from './presets/aura'
-import 'primeicons/primeicons.css'
-
-//in main.js
-// import 'primevue/resources/themes/aura-light-green/theme.css'
 
 // components
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup'; 
-import Row from 'primevue/row';                 
+import ColumnGroup from 'primevue/columngroup';
+import Row from 'primevue/row';
 import Calendar from 'primevue/calendar';
 import InputNumber from 'primevue/inputnumber';
 import IconField from 'primevue/iconfield';
@@ -33,11 +30,9 @@ import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Dialog from 'primevue/dialog';
 import InputMask from 'primevue/inputmask';
-// import TriStateCheckbox from 'primevue/tristatecheckbox';
-
+import FileUpload from 'primevue/fileupload';
 
 const app = createApp(App)
-
 
 app.component('InputMask', InputMask)
 app.component('DataTable', DataTable)
@@ -58,14 +53,15 @@ app.component('Slider', Slider)
 app.component('OverlayPanel', OverlayPanel)
 app.component('Toast', Toast)
 app.component('Dialog', Dialog)
-// app.component('TriStateCheckbox', TriStateCheckbox)
+app.component('FileUpload', FileUpload)
 
 app.use(PrimeVue, {
     unstyled: true,
-    pt: aura,
-})
+    pt: Aura,
+});
+
 app.use(ToastService);
-app.use(createPinia());
-app.use(router);
+app.use(createPinia())
+app.use(router)
 
 app.mount('#app')

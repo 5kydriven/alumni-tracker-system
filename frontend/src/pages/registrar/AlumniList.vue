@@ -1,38 +1,37 @@
 <template>
     <div class="card">
-        <DataTable v-model:filters="filters" :value="store.alumni" ref="dt" scrollable scroll-height="450px"
-            showGridlines removableSort filterDisplay="menu" class="z-30">
+        <DataTable ref="dt" v-model:filters="filters" scrollable scroll-height="450px" showGridlines removableSort
+            filterDisplay="menu" class="z-30" :value="store.alumni">
             <template #header>
                 <div class="flex justify-between">
                     <div class="flex gap-2">
                         <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
-                        <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined
-                            @click="openNew" />
-                        <Button type="button" icon="pi pi-external-link" label="Export" severity="secondary" outlined
-                            @click="exportCSV($event)" />
+                        <!-- <Button type="button" icon="pi pi-plus" label="Add" severity="secondary" outlined /> -->
+                        <Button type="button" icon="pi pi-file-export" label="Export" severity="secondary" outlined
+                            @click="exportCSV()" :disabled="!store.alumni" />
+                        <Button type="button" icon="pi pi-file-import" label="Import" severity="secondary" outlined
+                            @click="store.openDialog('top')" />
 
                     </div>
                     <span class="relative">
                         <i class="pi pi-search absolute top-2/4 -mt-2 left-3 text-surface-400 dark:text-surface-600" />
                         <InputText v-model="filters['global'].value" placeholder="Keyword Search"
-                            class="pl-10 font-normal" />
+                            class="pl-10 font-normal" :disabled="!store.alumni" />
                     </span>
                 </div>
             </template>
             <template #empty> No alumni found. </template>
 
-            <Column header="No.">
+            <Column header="#">
                 <template #body="slotProps">
                     {{ slotProps.index + 1 }}
                 </template>
             </Column>
 
-            <Column field="fullname" sortable header="Name">
+            <Column field="Name" sortable header="Name">
             </Column>
 
-            <Column field="studentId" header="Student ID"></Column>
-
-            <Column field="course" header="Course" :showFilterMatchModes="false">
+            <Column field="Course" header="Course" :showFilterMatchModes="false">
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="courses" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -43,18 +42,7 @@
                 </template>
             </Column>
 
-            <Column field="campus" header="Campus" :showFilterMatchModes="false">
-                <template #filter="{ filterModel }">
-                    <Dropdown v-model="filterModel.value" :options="campus" placeholder="Select One"
-                        class="p-column-filter" showClear>
-                        <template #option="slotProps">
-                            <Tag :value="slotProps.option" />
-                        </template>
-                    </Dropdown>
-                </template>
-            </Column>
-
-            <Column field="batch" header="Batch" :showFilterMatchModes="false">
+            <Column field="Batch" header="Batch" :showFilterMatchModes="false">
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="batches" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -65,7 +53,7 @@
                 </template>
             </Column>
 
-            <Column field="employment.status" header="Status" :showFilterMatchModes="false">
+            <Column field="Status" header="Status" :showFilterMatchModes="false">
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="employment" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -100,6 +88,7 @@
         </DataTable>
     </div>
 
+<<<<<<< HEAD:frontend/src/pages/AlumniPage.vue
     <Dialog v-model:visible="store.alumniDialog" :style="{ width: '700px' }" header="Add Alumni" :modal="true"
         class="p-fluid">
         <AlumniForm />
@@ -152,33 +141,38 @@
             </div>
         </div>
 
+=======
+    <Dialog v-model:visible="store.dialogVisible" :style="{ width: '40rem' }" :position="store.dialogPosition"
+        :draggable="false" modal header="Import File">
+        <ImportForm @formSuccess="onFormSuccess" />
+>>>>>>> 65e175740855b3034bc5b80866ae7069b8feb793:frontend/src/pages/registrar/AlumniList.vue
     </Dialog>
+
     <Toast />
 </template>
 
 <script setup>
-import AlumniForm from '@/components/AlumniForm.vue';
-import { useAlumniStore } from '@/stores/AlumniStore';
-import { onMounted, ref } from 'vue';
-import { getDoc, doc } from 'firebase/firestore';
-import { db, auth } from '@/stores/firebase';
+import { ref, onMounted } from 'vue'
+import ImportForm from '@/components/ImportForm.vue';
+import { useAlumniStore } from '@/stores/AlumniStore.js'
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
-
 const store = useAlumniStore();
+
+const onFormSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
+};
 
 const filters = ref();
 const courses = ref(['BSIT', 'BSCRIM', 'BSBA'])
 const batches = ref([2026, 2024])
 const employment = ref(['Not Track', 'Unemployed', 'Employed'])
-const campus = ref(['San Carlos City', 'Kabankalan City'])
 const dt = ref();
 const op = ref();
 const profile = ref(false);
 
 const toggle = (event) => {
-    console.log("click")
     op.value.toggle(event);
 }
 
@@ -186,20 +180,13 @@ const showProfile = () => {
     profile.value = !profile.value
 }
 
-const openNew = () => {
-    store.alumniDialog = !store.alumniDialog
-}
-
 const initFilters = () => {
     filters.value = {
         global: { value: null },
-        firstname: { value: null },
-        studentId: { value: null },
-        course: { value: null },
-        campus: { value: null },
-        batch: { value: null },
-        'employment.status': { value: null },
-
+        Name: { value: null },
+        Status: { value: null },
+        Course: { value: null },
+        Batch: { value: null },
     };
 };
 
@@ -213,17 +200,7 @@ const exportCSV = () => {
     dt.value.exportCSV();
 };
 
-
-
-onMounted(async () => {
-    const role = localStorage.getItem('role')
-    const campus = localStorage.getItem('campus')
-    if (role == "superAdmin") {
-        await store.getAlumni();
-    } else {
-        await store.filteredAlumni(campus); // temporary id
-    }
-    // await store.filteredAlumni("GcpwutNKeHMlD4dxk9pYHSkq98T2"); // temporary id
-    // loading.value = false;
+onMounted(() => {
+    store.getAlumni();
 })
 </script>

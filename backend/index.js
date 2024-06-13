@@ -1,55 +1,43 @@
-require("dotenv").config();
-const express = require('express')
-const admin = require('firebase-admin');
-const cors = require('cors');
-const app = express()
-const port = process.env.port || 8000;
+// server.js
+import dotenv from 'dotenv';
+import express from 'express';
+import admin from 'firebase-admin';
+import cors from 'cors';
+import routes from './routes/index.js';
+import bodyParser from 'body-parser';
 
-const serviceAccount = require('./key.json');
+const app = express();
+dotenv.config();
+const port = process.env.PORT || 8000;
 
-// Initialize the Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
-// Configure CORS
-const corsOptions = {
-  origin: 'http://localhost:5173', // Replace this with your actual frontend URL
-  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+const serviceKey = {
+    "type": process.env.TYPE,
+    "project_id": process.env.PROJECT_ID,
+    "private_key_id": process.env.PRIVATE_KEY_ID,
+    "private_key": process.env.PRIVATE_KEY,
+    "client_email": process.env.CLIENT_EMAIL,
+    "client_id": process.env.CLIENT_ID,
+    "auth_uri": process.env.AUTH_URI,
+    "token_uri": process.env.TOKEN_URI,
+    "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
+    "client_x509_cert_url": process.env.CLIENT_X509_CERT_URL,
+    "universe_domain": process.env.UNIVERSE_DOMAIN
 };
 
-app.use(cors(corsOptions));
+admin.initializeApp({
+    credential: admin.credential.cert(serviceKey)
+});
+
+app.use(cors());
 app.use(express.json());
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("server running");
-});
+// Parse application/json
+app.use(bodyParser.json());
 
-app.post('/createUser', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await admin.auth().createUser({
-      email: email,
-      password: password,
-    });
-    res.status(200).send({ uid: user.uid });
-  } catch (error) {
-    res.status(400).send(error.message);
-    res.status(400).send("error");
-  }
-});
-
-app.post('/deleteUser', async (req, res) => {
-  const {uid} = req.body
-  try {
-    await admin.auth().deleteUser(uid)
-    res.status(200).send({msg: 'Succesfully deleted' + uid});
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
+app.use('/', routes);
 
 app.listen(port, () => {
-  console.log(`Server app listening on port ${port}`)
-})
-
+    console.log(`Server app listening on port ${port}`)
+});
