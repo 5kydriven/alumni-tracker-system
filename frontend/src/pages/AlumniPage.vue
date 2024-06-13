@@ -88,10 +88,10 @@
                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white "
                                         @click="showProfile">Show</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#"
                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </OverlayPanel>
@@ -104,9 +104,54 @@
         class="p-fluid">
         <AlumniForm />
     </Dialog>
-    <Dialog v-model:visible="profile" :style="{ width: '700px' }" header="Alumni Profile" :modal="true"
-        class="p-fluid">
-        hello
+    <Dialog v-model:visible="profile" :style="{ width: '500px' }" header="Alumni Profile" :modal="true" class="p-fluid">
+        <div class="flex justify-between px-4">
+            <div>
+                <div>
+                    <label class="text-gray-500 text-xs font-light">Name</label>
+                    <p class="text-gray-900 text-base font-semibold ">Mhel Angelo O. Tagpuno</p>
+                </div>
+                <div>
+                    <label class="text-gray-500 text-xs font-light">Student ID</label>
+                    <p class="text-gray-900 text-base font-semibold">215843</p>
+                </div>
+                <div>
+                    <label class="text-gray-500 text-xs font-light">Mobile Number</label>
+                    <p class="text-gray-900 text-base font-semibold">09385254044</p>
+                </div>
+                <div>
+                    <ul class=" text-gray-400 text-xs font-thin list-none ">
+                        <li>
+                            School Information
+                            <ul class="ps-2 list-none list-inside font-semibold text-sm text-gray-900">
+                                <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>San Carlos Campus</li>
+                                <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>BSIT</li>
+                                <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>Batch 2026</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col justify-between w-44 items-center ">
+                <ul class="text-gray-400 text-xs font-thin list-none ">
+                    <li>
+                        Employement Information
+                        <ul class="ps-2 list-none list-inside font-semibold text-sm text-gray-900">
+                            <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>Self Employed</li>
+                            <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>Sky Enterprise</li>
+                            <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>img</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="flex gap-4">
+                    <button type="button"
+                        class="text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 text-sm px-3 py-2 ">Delete</button>
+                    <button type="button"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2">Edit</button>
+                </div>
+            </div>
+        </div>
+
     </Dialog>
     <Toast />
 </template>

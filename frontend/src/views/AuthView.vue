@@ -3,14 +3,14 @@
 
         <!-- left side -->
         <div class="relative">
-            <img src="/image.jpg" alt="img" class="w-[850px] h-screen hidden md:block object-cover" />
+            <img src="/cpsu.png" alt="img" class="w-[850px] h-screen hidden md:block object-cover" />
             <!-- text on image  -->
-            <div
+            <!-- <div
                 class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block">
                 <span class="text-black text-xl">We've been using Untitle to kick"<br />start every new project
                     and can't <br />imagine working without it."
                 </span>
-            </div>
+            </div> -->
         </div>
 
         <!-- {/* right side */} -->

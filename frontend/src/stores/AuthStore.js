@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
         }
       } else {
         localStorage.clear();
-        router.replace('/');
+        router.replace('/test');
       }
     });
   }
