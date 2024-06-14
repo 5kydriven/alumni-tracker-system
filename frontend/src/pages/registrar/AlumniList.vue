@@ -53,7 +53,22 @@
                 </template>
             </Column>
 
-            <Column field="Status" header="Status" :showFilterMatchModes="false">
+            <Column field="email" header="Email Address" :showFilterMatchModes="false">
+                <template #filter="{ filterModel }">
+                    <Dropdown v-model="filterModel.value" :options="batches" placeholder="Select One"
+                        class="p-column-filter" showClear>
+                        <template #option="slotProps">
+                            <Tag :value="slotProps.option" />
+                        </template>
+                    </Dropdown>
+                </template>
+            </Column>
+
+            <Column field="isAccountUpdated" header="Status" :showFilterMatchModes="false">
+                <template #body="{ data }">
+                    <Tag v-if="data.isAccountUpdated" severity="success" value="Verified"></Tag>
+                    <Tag v-else severity="danger" value="Unverified"></Tag>
+                </template>
                 <template #filter="{ filterModel }">
                     <Dropdown v-model="filterModel.value" :options="employment" placeholder="Select One"
                         class="p-column-filter" showClear>
@@ -88,64 +103,9 @@
         </DataTable>
     </div>
 
-<<<<<<< HEAD:frontend/src/pages/AlumniPage.vue
-    <Dialog v-model:visible="store.alumniDialog" :style="{ width: '700px' }" header="Add Alumni" :modal="true"
-        class="p-fluid">
-        <AlumniForm />
-    </Dialog>
-    <Dialog v-model:visible="profile" :style="{ width: '500px' }" header="Alumni Profile" :modal="true" class="p-fluid">
-        <div class="flex justify-between px-4">
-            <div>
-                <div>
-                    <label class="text-gray-500 text-xs font-light">Name</label>
-                    <p class="text-gray-900 text-base font-semibold ">Mhel Angelo O. Tagpuno</p>
-                </div>
-                <div>
-                    <label class="text-gray-500 text-xs font-light">Student ID</label>
-                    <p class="text-gray-900 text-base font-semibold">215843</p>
-                </div>
-                <div>
-                    <label class="text-gray-500 text-xs font-light">Mobile Number</label>
-                    <p class="text-gray-900 text-base font-semibold">09385254044</p>
-                </div>
-                <div>
-                    <ul class=" text-gray-400 text-xs font-thin list-none ">
-                        <li>
-                            School Information
-                            <ul class="ps-2 list-none list-inside font-semibold text-sm text-gray-900">
-                                <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>San Carlos Campus</li>
-                                <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>BSIT</li>
-                                <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>Batch 2026</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex flex-col justify-between w-44 items-center ">
-                <ul class="text-gray-400 text-xs font-thin list-none ">
-                    <li>
-                        Employement Information
-                        <ul class="ps-2 list-none list-inside font-semibold text-sm text-gray-900">
-                            <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>Self Employed</li>
-                            <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>Sky Enterprise</li>
-                            <li><span class="text-xs font-thin text-gray-400 mr-1">-</span>img</li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="flex gap-4">
-                    <button type="button"
-                        class="text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 text-sm px-3 py-2 ">Delete</button>
-                    <button type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2">Edit</button>
-                </div>
-            </div>
-        </div>
-
-=======
     <Dialog v-model:visible="store.dialogVisible" :style="{ width: '40rem' }" :position="store.dialogPosition"
         :draggable="false" modal header="Import File">
         <ImportForm @formSuccess="onFormSuccess" />
->>>>>>> 65e175740855b3034bc5b80866ae7069b8feb793:frontend/src/pages/registrar/AlumniList.vue
     </Dialog>
 
     <Toast />
