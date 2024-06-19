@@ -14,16 +14,16 @@ export const useAuthStore = defineStore('auth', () => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const roles = await getDoc(doc(db, 'accountRoles', user.uid));
-                const info = await getDoc(doc(db, 'alumni', user.uid));
 
                 localStorage.setItem('uid', user.uid);
-                localStorage.setItem('isUpdated', info.data().isAccountUpdated);
                 role.value = roles.data().role;
                 // loading.value = true;
 
                 if (role.value === 'registrar') {
                     router.push('/registrar');
                 } else {
+                    const info = await getDoc(doc(db, 'alumni', user.uid));
+                    localStorage.setItem('isUpdated', info.data().isAccountUpdated);
                     router.push('/jobseekers');
                 }
 
