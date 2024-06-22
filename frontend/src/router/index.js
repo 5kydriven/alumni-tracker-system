@@ -20,12 +20,12 @@ const router = createRouter({
       component: () => import('@/pages/registrar/DashboardPage.vue'),
       children: [
         {
-          path: '',
+          path: '/registrar/alumni-list',
           name: 'dashboard',
           component: () => import('@/pages/registrar/Overview.vue')
         },
         {
-          path: '/registrar/alumni-list',
+          path: '',
           name: 'alumni-list',
           component: () => import('@/pages/registrar/AlumniList.vue'),
         }
@@ -35,6 +35,23 @@ const router = createRouter({
       path: '/jobseekers',
       name: 'user-home',
       component: () => import('@/pages/user/Homepage.vue'),
+    },
+    {
+      path: '/employer',
+      name: 'employer-home',
+      component: () => import('@/pages/employer/index.vue'),
+      children: [
+        {
+          path: '',
+          name: 'employer-home',
+          component: () => import('@/pages/employer/HomePage.vue'),
+        },
+        {
+          path: '/employer/postjob',
+          name: 'post-jobs',
+          component: () => import('@/pages/employer/HomePage.vue'),
+        },
+      ]
     }
   ]
 })
