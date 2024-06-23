@@ -4,4 +4,4 @@ dist
 
 .env
 
-serviceKey.json
+key.json
