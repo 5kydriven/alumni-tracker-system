@@ -1,6 +1,92 @@
+<script setup>
+import UserLayout from '@/layouts/UserLayout.vue';
+import { ref, computed, onBeforeMount } from 'vue';
+import { auth, db } from '@/stores/firebase.js';
+import { updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendEmailVerification, onAuthStateChanged } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
+import { useAlumniStore } from '@/stores/AlumniStore.js';
+
+const store = useAlumniStore()
+
+// User account data
+const account = ref({
+    email: '',
+    password: '',
+    confirmPassword: ''
+});
+
+// Flags for form validation
+const showPasswordValidation = ref(false);
+const showConfirmPasswordValidation = ref(false);
+
+// Computed properties for form validation
+const isPasswordValid = computed(() => account.value.password.length >= 6);
+const isPasswordMatching = computed(() => account.value.password === account.value.confirmPassword);
+const isFormValid = computed(() => isPasswordValid.value && isPasswordMatching.value);
+
+// Handlers for input events
+const onPasswordInput = () => {
+    if (account.value.password) showPasswordValidation.value = true;
+};
+const onConfirmPasswordInput = () => {
+    if (account.value.confirmPassword) showConfirmPasswordValidation.value = true;
+};
+
+// Flags to handle email verification state
+const isUpdated = ref(localStorage.getItem('isUpdated') === 'true');
+const isEmailVerified = ref(false);
+
+// Function to update user account
+const updateAccount = async () => {
+    const { email, password } = account.value;
+    const defaultPass = '123456'; // Consider using environment variables for sensitive data
+
+    try {
+        const credential = EmailAuthProvider.credential(auth.currentUser.email, defaultPass);
+        await reauthenticateWithCredential(auth.currentUser, credential);
+        console.log("Reauthenticated");
+
+        await updateEmail(auth.currentUser, email);
+        console.log('Email updated to:', email);
+
+        await sendEmailVerification(auth.currentUser);
+        console.log('Email verification sent');
+        alert('A verification email has been sent to your new email address. Please verify it before logging in.');
+
+        await updatePassword(user, password);
+        console.log('Password updated');
+
+        await setDoc(doc(db, 'alumni', auth.currentUser.uid), {
+            isAccountUpdated: true,
+            email: auth.currentUser.email,
+        });
+        console.log('Account update recorded in Firestore');
+
+    } catch (error) {
+        console.error('Error updating account:', error);
+    }
+};
+
+const isOpen = ref(false)
+
+const toggle = () => {
+    isOpen.value = !isOpen.value
+}
+
+function formatFirebaseTimestamp(timestamp) {
+    const date = new Date(timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000));
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+onBeforeMount(() => {
+    store.fetchJobs();
+})
+</script>
+
 <template>
     <UserLayout>
-        <Dialog  modal :style="{ width: '25rem' }">
+        <Dialog modal :style="{ width: '25rem' }">
             <template #container="{ closeCallback }">
                 <form @submit.prevent="updateAccount" class="w-full space-y-4 md:space-y-5 p-5">
                     <div>
@@ -46,13 +132,12 @@
         </Dialog>
         <!-- Main content -->
         <div class="py-5">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-8">
                     <!-- Left Sidebar -->
-                    <aside class="lg:col-span-3">
+                    <!-- <aside class="lg:col-span-3">
                         <div class="bg-white overflow-hidden shadow rounded-lg">
                             <div class="px-4 py-5 sm:p-6">
-                                <!-- Profile Information -->
                                 <div class="flex items-center space-x-4">
                                     <img class="h-12 w-12 rounded-full" src="/cpsuLogo.png" alt="User Avatar">
                                     <div class="space-y-1">
@@ -64,11 +149,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Additional sections like groups, events can be added here -->
-                    </aside>
+                    </aside> -->
 
                     <!-- Main Feed -->
-                    <main class="lg:col-span-6">
+                    <main class="lg:col-span-12">
                         <!-- <div class="bg-white overflow-hidden shadow rounded-lg">
                         <div class="px-4 py-5 sm:p-6">
                             <div class="flex space-x-4">
@@ -112,15 +196,19 @@
                         <!-- Feed posts -->
                         <div class="mt-0">
                             <!-- Single post -->
-                            <div class="bg-white overflow-hidden shadow rounded-lg mb-4" v-for="i in 10">
+                            <div class="bg-white overflow-hidden shadow rounded-lg mb-4" v-for="job in store.jobs">
                                 <div class="px-4 py-5 sm:p-6">
-                                    <div class="flex space-x-3">
-                                        <img class="h-10 w-10 rounded-full" src="/cpsuLogo.png" alt="User Avatar">
-                                        <div class="min-w-0 flex-1">
-                                            <p class="text-sm font-medium text-gray-900">User Name</p>
-                                            <p class="text-sm text-gray-500">2h ago</p>
-                                            <p class="mt-1 text-sm text-gray-700">Post content goes here.</p>
-                                        </div>
+                                    <div class="flex flex-col">
+                                        <p class="text-gray-900 flex gap-2 items-center"><span
+                                                class="text-2xl font-semibold">
+                                                {{ job.title }}
+                                            </span>
+                                            <Tag :value="job.type" severity="secondary" class="font-normal" />
+                                        </p>
+                                        <label class="text-sm text-gray-700"><span>{{ job.person }} </span> -
+                                            {{ formatFirebaseTimestamp(job.timestamp) }}</label>
+                                        <label class="text-sm font-thin text-gray-500">{{ job.salary }}</label>
+                                        <p class="mt-1 text-base  text-gray-700">{{ job.description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -204,77 +292,3 @@
         </div>
     </UserLayout>
 </template>
-
-<script setup>
-import UserLayout from '@/layouts/UserLayout.vue';
-import { ref, computed, onBeforeMount } from 'vue';
-import { auth, db } from '@/stores/firebase.js';
-import { updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendEmailVerification, onAuthStateChanged } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
-
-// User account data
-const account = ref({
-    email: '',
-    password: '',
-    confirmPassword: ''
-});
-
-// Flags for form validation
-const showPasswordValidation = ref(false);
-const showConfirmPasswordValidation = ref(false);
-
-// Computed properties for form validation
-const isPasswordValid = computed(() => account.value.password.length >= 6);
-const isPasswordMatching = computed(() => account.value.password === account.value.confirmPassword);
-const isFormValid = computed(() => isPasswordValid.value && isPasswordMatching.value);
-
-// Handlers for input events
-const onPasswordInput = () => {
-    if (account.value.password) showPasswordValidation.value = true;
-};
-const onConfirmPasswordInput = () => {
-    if (account.value.confirmPassword) showConfirmPasswordValidation.value = true;
-};
-
-// Flags to handle email verification state
-const isUpdated = ref(localStorage.getItem('isUpdated') === 'true');
-const isEmailVerified = ref(false);
-
-// Function to update user account
-const updateAccount = async () => {
-    const { email, password } = account.value;
-    const defaultPass = '123456'; // Consider using environment variables for sensitive data
-
-    try {
-        const credential = EmailAuthProvider.credential(auth.currentUser.email, defaultPass);
-        await reauthenticateWithCredential(auth.currentUser, credential);
-        console.log("Reauthenticated");
-
-        await updateEmail(auth.currentUser, email);
-        console.log('Email updated to:', email);
-
-        await sendEmailVerification(auth.currentUser);
-        console.log('Email verification sent');
-        alert('A verification email has been sent to your new email address. Please verify it before logging in.');
-
-        await updatePassword(user, password);
-        console.log('Password updated');
-
-        await setDoc(doc(db, 'alumni', auth.currentUser.uid), {
-            isAccountUpdated: true,
-            email: auth.currentUser.email,
-        });
-        console.log('Account update recorded in Firestore');
-
-    } catch (error) {
-        console.error('Error updating account:', error);
-    }
-};
-
-const isOpen = ref(false)
-
-const toggle = () => {
-    isOpen.value = !isOpen.value
-}
-
-</script>

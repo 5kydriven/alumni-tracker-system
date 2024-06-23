@@ -8,11 +8,11 @@ export const useAlumniStore = defineStore('alumni', () => {
     const dialogVisible = ref(false);
     const dialogLoading = ref(false)
     const alumni = ref()
+    const jobs = ref()
 
     const openDialog = (pos) => {
         dialogPosition.value = pos;
         dialogVisible.value = true;
-        
     }
 
     const getAlumni = () => {
@@ -28,6 +28,20 @@ export const useAlumniStore = defineStore('alumni', () => {
             console.log(err)
         }
     }
+
+    const fetchJobs = () => {
+        try {
+            onSnapshot(collection(db, "job-post"), (querySnapshot) => {
+                const data = [];
+                querySnapshot.forEach((doc) => {
+                    data.push({ ...doc.data() });
+                });
+                jobs.value = data
+            });
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
     return { 
         dialogPosition,
@@ -36,5 +50,7 @@ export const useAlumniStore = defineStore('alumni', () => {
         dialogLoading,
         alumni,
         getAlumni,
+        fetchJobs,
+        jobs,
      }
 })
