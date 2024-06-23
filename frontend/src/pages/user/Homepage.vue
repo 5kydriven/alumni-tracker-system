@@ -1,6 +1,6 @@
 <template>
     <UserLayout>
-        <Dialog :visible="!isUpdated" modal :style="{ width: '25rem' }">
+        <Dialog  modal :style="{ width: '25rem' }">
             <template #container="{ closeCallback }">
                 <form @submit.prevent="updateAccount" class="w-full space-y-4 md:space-y-5 p-5">
                     <div>

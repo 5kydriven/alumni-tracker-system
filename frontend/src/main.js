@@ -31,6 +31,8 @@ import ToastService from 'primevue/toastservice';
 import Dialog from 'primevue/dialog';
 import InputMask from 'primevue/inputmask';
 import FileUpload from 'primevue/fileupload';
+import Textarea from 'primevue/textarea';
+import Card from 'primevue/card';
 
 const app = createApp(App)
 
@@ -54,6 +56,8 @@ app.component('OverlayPanel', OverlayPanel)
 app.component('Toast', Toast)
 app.component('Dialog', Dialog)
 app.component('FileUpload', FileUpload)
+app.component('Textarea', Textarea)
+app.component('Card', Card)
 
 app.use(PrimeVue, {
     unstyled: true,
